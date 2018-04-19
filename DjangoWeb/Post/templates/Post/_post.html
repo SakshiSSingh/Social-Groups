@@ -1,0 +1,27 @@
+<div class="container">
+
+</div>
+<div class="post media">
+  <div class="media-body">
+  		<strong>{{ post.user.username }}</strong>
+
+<h5 class="media-heading" >
+
+<span class="username" >
+ <a  href="{% url 'Post:post_detail' username=post.user.username pk=post.pk %}">{{ post.title }}</a>
+</span>
+<br>
+ <time class="time"></time> Created at :{{ post.created_at}} </p></time>
+</h5>
+
+<div class="media-footer">
+
+
+  	{% if user.is_authenticated and post.user == user and not hide_delete%}
+    <a href="{% url 'Post:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
+        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+        <span class="text-danger icon-label">Delete</span>
+      </a></div>
+  {% endif %}
+</div>
+</div>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body_block %}
+{% for post in post_list %}
+<h2>
+<a href="{% url 'Post:post_detail' username=post.user.username pk=post.pk %}">{{post.title}}</a>
+</h2>
+{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block body_block %}
+    <div class="container">
+<h1  style="font-size:40px; font-family:harlow solid italic"><b><em>{{group.name}}</em></b></h1>
+
+<p  style="float:right"> <a class="btn btn-info" href="{% url 'Post:create_post' %}">Click to add Post(s).</a></p>
+
+ <br> <br> <p  style="font-family: adobe caslon pro; font-size:20px;" class="bg-success fon"><b>About</b> : {{group.description}}</p>
+<p  style="font-family: adobe caslon pro; font-size:20px;" class="bg-info fon"><b>Group Members</b> : {{group.members.count}}</p>
+<p  style="font-family: adobe caslon pro; font-size:20px;" class="bg-warning fon"><b>Post count</b> : {{group.posts.count}}</p></div>
+
+
+
+{% if user in group.members.all %}
+ <div class="col container">
+
+     <div class="row">
+        <a href="{% url 'Group:Leave' pk=group.pk %}" class="btn btn-primary">Leave</a>
+      <br> <br>
+     </div>
+
+     <div class="row">
+        <a class="btn btn-danger" href="{% url 'Group:group_delete' pk=group.pk %}"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+      <br> <br>
+     </div>
+
+</div>
+  {% else %}
+  {% if user.is_authenticated %}
+<div class="col container">
+     <div class="row">
+        <a href="{% url 'Group:Join' pk=group.pk %}" class="btn btn-primary">Join</a> <br> <br>
+     </div>
+    {% else %}
+    <h3 ><b> YOu need to be logged in to join this Group !</b></h3>
+{% endif %}
+
+ </div>
+  {% endif %}
+
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+  <div class="content">
+
+  	{% if group.posts.count == 0 %}
+	<h2>No posts in this group yet!</h2>
+{% else %}
+{% for post in group.posts.all %}
+    {% include "Post/_post.html" %}
+  {% endfor %}
+
+
+
+	{% endif %}
+</div>
+
+</div>
+{% endblock %}
